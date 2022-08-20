@@ -12,6 +12,8 @@
   },
   "rules": {
     "class-methods-use-this": "off",
+    "consistent-return": "off",
+    "camelcase": "off",
     "linebreak-style": ["error", "windows"]
   }
 }
