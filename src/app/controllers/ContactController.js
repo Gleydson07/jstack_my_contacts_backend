@@ -32,7 +32,6 @@ class ContactController {
     }
 
     const contactAlreadyExists = await ContactsRepository.findByEmail(email);
-    console.log('email: ', contactAlreadyExists);
 
     if (contactAlreadyExists) {
       return response.status(400).json({ message: 'Contact already exists.' });
