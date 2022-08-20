@@ -4,16 +4,19 @@ class ContactsRepository {
   async findAll(orderBy) {
     const direction = orderBy?.toUpperCase() === 'DESC' ? 'DESC' : 'ASC';
     return db.query(`
-      SELECT id, name, email, phone, category_id
-      FROM contacts ORDER BY name ${direction}
+      SELECT ctc.id, ctc.name, ctc.email, ctc.phone, ctc.category_id, cat.name AS category_name
+      FROM contacts AS ctc
+        LEFT JOIN categories AS cat ON ctc.category_id = cat.id
+      ORDER BY ctc.name ${direction}
     `);
   }
 
   async findById(id) {
     return db.query(`
-      SELECT id, name, email, phone, category_id
-      FROM contacts
-      WHERE id = $1
+      SELECT ctc.id, ctc.name, ctc.email, ctc.phone, ctc.category_id, cat.name AS category_name
+      FROM contacts AS ctc
+        LEFT JOIN categories AS cat ON ctc.category_id = cat.id
+      WHERE ctc.id = $1
     `, [id]);
   }
 
