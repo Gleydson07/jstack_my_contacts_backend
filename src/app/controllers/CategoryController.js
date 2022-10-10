@@ -9,6 +9,11 @@ class CategoryController {
 
   async show(request, response) {
     const { id } = request.params;
+
+    if(!isValidUUID(id)){
+      return response.status(400).json({ message: 'Invalid category id.' });
+    }
+
     const category = await CategoriesRepository.findById(id);
 
     if (!category) {
@@ -37,6 +42,11 @@ class CategoryController {
 
   async update(request, response) {
     const { id } = request.params;
+
+    if(!isValidUUID(id)){
+      return response.status(400).json({ message: 'Invalid category id.' });
+    }
+
     const { name } = request.body;
     const categoryAlreadyExists = await CategoriesRepository.findById(id);
 
@@ -59,6 +69,11 @@ class CategoryController {
 
   async delete(request, response) {
     const { id } = request.params;
+
+    if(!isValidUUID(id)){
+      return response.status(400).json({ message: 'Invalid category id.' });
+    }
+
     const category = await CategoriesRepository.findById(id);
 
     if (!category) {
