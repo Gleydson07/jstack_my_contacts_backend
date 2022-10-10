@@ -10,11 +10,12 @@ class ContactController {
 
   async show(request, response) {
     const { id } = request.params;
-    const contact = await ContactsRepository.findById(id);
 
     if(!isValidUUID(id)){
       return response.status(400).json({ message: 'Invalid user id.' });
     }
+
+    const contact = await ContactsRepository.findById(id);
 
     if (!contact) {
       return response.status(404).json({ message: 'Contact not found.' });
@@ -27,6 +28,10 @@ class ContactController {
     const {
       name, email, phone, category_id,
     } = request.body;
+
+    if(!isValidUUID(category_id)){
+      return response.status(400).json({ message: 'Invalid category id.' });
+    }
 
     if (!name) {
       return response.status(400).json({ message: 'Name is required' });
@@ -52,13 +57,18 @@ class ContactController {
   async update(request, response) {
     const { id } = request.params;
 
+    const {
+      name, email, phone, category_id,
+    } = request.body;
+
     if(!isValidUUID(id)){
       return response.status(400).json({ message: 'Invalid user id.' });
     }
 
-    const {
-      name, email, phone, category_id,
-    } = request.body;
+    if(!isValidUUID(category_id)){
+      return response.status(400).json({ message: 'Invalid category id.' });
+    }
+
     const contactAlreadyExists = await ContactsRepository.findById(id);
 
     if (!contactAlreadyExists) {
