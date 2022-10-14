@@ -21,7 +21,7 @@ class ContactController {
       return response.status(404).json({ message: 'Contact not found.' });
     }
 
-    response.status(200).json(contact);
+    response.status(200).json(contact[0]);
   }
 
   async store(request, response) {
