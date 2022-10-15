@@ -88,7 +88,7 @@ class ContactController {
       category_id,
     });
 
-    response.status(201).json(contact);
+    response.status(200).json(contact);
   }
 
   async delete(request, response) {
